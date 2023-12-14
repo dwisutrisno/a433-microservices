@@ -1,0 +1,28 @@
+# tentukan versi ke 3.5
+version: "3.5"
+# daftar services
+services:
+  # service pertama
+  item-app:
+    # menggunakan image item app dari docker hub
+    image: dwisutrisno/item-app:v1
+    # port maping port 80
+    ports:
+      - 80:8080
+    # tunggu item-app berjalan setelah item-db
+    depends_on:
+      - item-db
+    # terapkan restart policy
+    restart: always
+  # service kedua
+  item-db:
+    # menggunakan image monggo:3
+    image: mongo:3
+    # tentukan volume bernama app-db dengan target /data/db
+    volumes:
+      - app-db:/data/db
+    # terapkan restart policy
+    restart: always
+# tentukan volume
+volumes:
+  app-db:
